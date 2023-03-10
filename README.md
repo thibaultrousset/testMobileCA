@@ -1,17 +1,14 @@
 # test_mobile_ca
 
-A new Flutter project.
+Flutter test for Crédit Agricole
 
-## Getting Started
+## TODO
 
-This project is a starting point for a Flutter application.
+This test is a tiny bank application.
 
-A few resources to get you started if this is your first Flutter project:
+This app will have 2 screens:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Display of the bank accounts list
+- By choosing an account, display the account's op
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# testMobileCA
+
