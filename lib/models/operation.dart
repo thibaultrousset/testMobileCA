@@ -1,4 +1,4 @@
-import '../helpers/objectAttribute.dart';
+import '../helpers/object_attribute.dart';
 
 class Operation {
   String? _id;
@@ -10,11 +10,11 @@ class Operation {
   Operation(this._id, this._amount, this._category, this._date, this._title);
 
   Operation.map(dynamic obj) {
-    _id = obj[ObjectAttribute.ID];
-    _amount = obj[ObjectAttribute.AMOUNT];
-    _category = obj[ObjectAttribute.CATEGORY];
-    _date = obj[ObjectAttribute.DATE];
-    _title = obj[ObjectAttribute.TITLE];
+    _id = obj[ObjectAttribute.id];
+    _amount = obj[ObjectAttribute.amount];
+    _category = obj[ObjectAttribute.category];
+    _date = obj[ObjectAttribute.date];
+    _title = obj[ObjectAttribute.title];
   }
 
   String? get title => _title;

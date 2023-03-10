@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_mobile_ca/helpers/wording.dart';
-import 'package:test_mobile_ca/widgets/bankAccountsListBlock.dart';
+import 'package:test_mobile_ca/widgets/bank_accounts_list_block.dart';
 
 import '../models/bank_account.dart';
 
@@ -40,6 +40,5 @@ class BanksList extends StatelessWidget {
     );
   }
 
-  @override
   void initState() {}
 }

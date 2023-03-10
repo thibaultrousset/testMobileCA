@@ -74,6 +74,5 @@ class BankAccountListBlock extends StatelessWidget {
     );
   }
 
-  @override
   void initState() {}
 }

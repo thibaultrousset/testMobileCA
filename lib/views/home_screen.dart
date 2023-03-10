@@ -7,9 +7,7 @@ import '../helpers/wording.dart';
 import '../models/bank_account.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, required this.title});
-
-  final String title;
+  const HomeScreen({super.key,});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -19,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<BankAccount>? caBankAccountList = [];
   List<BankAccount>? otherBankAccountList = [];
 
-  // create liste of bank accounts maped with models and separates in 2 lists
+  // create list of bank accounts mapped with models and separates in 2 lists
   // CA bank accounts ans other bank accounts
   generateBankAccountList(bankAccounts){
     // loop on api response (json here)

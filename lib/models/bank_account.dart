@@ -1,4 +1,4 @@
-import '../helpers/objectAttribute.dart';
+import '../helpers/object_attribute.dart';
 import 'account.dart';
 
 class BankAccount {
@@ -10,10 +10,10 @@ class BankAccount {
   BankAccount(this._isCA, this._name, this._accounts);
 
   BankAccount.map(dynamic obj) {
-    _isCA = obj[ObjectAttribute.IS_CA];
-    _name = obj[ObjectAttribute.NAME];
-    for (var i = 0; i < obj[ObjectAttribute.ACCOUNTS].length; i++) {
-      _accounts!.add(Account.map(obj[ObjectAttribute.ACCOUNTS][i]));
+    _isCA = obj[ObjectAttribute.isCA];
+    _name = obj[ObjectAttribute.name];
+    for (var i = 0; i < obj[ObjectAttribute.accounts].length; i++) {
+      _accounts!.add(Account.map(obj[ObjectAttribute.accounts][i]));
     }
     _accounts!.sort((a, b) => a.label!.toLowerCase().compareTo(b.label!.toLowerCase()));
   }
