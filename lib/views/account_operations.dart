@@ -6,8 +6,8 @@ import 'package:test_mobile_ca/models/account.dart';
 /// body of detail of an account with list of operations
 
 class AccountOperations extends StatelessWidget {
-  const AccountOperations({Key? key, this.account}) : super(key: key);
-  final Account? account;
+  const AccountOperations({Key? key, required this.account}) : super(key: key);
+  final Account account;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class AccountOperations extends StatelessWidget {
                       padding: const EdgeInsets.all(5),
                       alignment: Alignment.center,
                       child: Text(
-                          "${account!.balance} €",
+                          "${account.balance} €",
                           style: TextStyle(
                               color: Colors.grey[700],
                               fontSize: 40,
@@ -52,7 +52,7 @@ class AccountOperations extends StatelessWidget {
                       padding: const EdgeInsets.all(5),
                       alignment: Alignment.center,
                       child: Text(
-                          account!.label!,
+                          account.label,
                           style: TextStyle(
                               color: Colors.grey[700],
                               fontSize: 25,
@@ -66,12 +66,12 @@ class AccountOperations extends StatelessWidget {
                 ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: account!.operations!.length,
+                    itemCount: account.operations.length,
                     itemBuilder: (BuildContext context, int index) {
                       //map List of our data to the ListView
                       return ListTile(
                         title:Text(
-                            account!.operations![index].title!,
+                            account.operations[index].title,
                             style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 15,
@@ -79,14 +79,14 @@ class AccountOperations extends StatelessWidget {
                         ),
                         subtitle: Text(
                           // format unix time stamp to dd/MM/yyyy
-                            inputFormat.format(DateTime.fromMillisecondsSinceEpoch(int.parse(account!.operations![index].date!)*1000)).toString(),
+                            inputFormat.format(DateTime.fromMillisecondsSinceEpoch(int.parse(account.operations[index].date)*1000)).toString(),
                             style: const TextStyle(
                               color: Colors.black,
                               fontSize: 15,
                             )
                         ),
                         trailing: Text(
-                            "${account!.operations![index].amount!} €",
+                            "${account.operations[index].amount} €",
                             style: const TextStyle(
                               color: Colors.grey,
                               fontSize: 15,

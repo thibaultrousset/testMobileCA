@@ -31,8 +31,8 @@ class BanksList extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            BankAccountListBlock(title: Wording.caBank,banks: caBankAccountList!,),
-            BankAccountListBlock(title: Wording.otherBanks,banks: otherBankAccountList!,),
+            BankAccountListBlock(title: Wording.caBank,banks: caBankAccountList,),
+            BankAccountListBlock(title: Wording.otherBanks,banks: otherBankAccountList,),
           ],
         ),
       );}),

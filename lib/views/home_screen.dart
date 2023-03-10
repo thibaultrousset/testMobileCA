@@ -14,8 +14,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<BankAccount>? caBankAccountList = [];
-  List<BankAccount>? otherBankAccountList = [];
+  List<BankAccount> caBankAccountList = [];
+  List<BankAccount> otherBankAccountList = [];
 
   // create list of bank accounts mapped with models and separates in 2 lists
   // CA bank accounts ans other bank accounts
@@ -26,15 +26,15 @@ class _HomeScreenState extends State<HomeScreen> {
       var bankAccountTemp = BankAccount.map(bankAccounts[i]);
       // separate ca from others
       if(bankAccountTemp.isCA == 0){
-        caBankAccountList!.add(bankAccountTemp);
+        caBankAccountList.add(bankAccountTemp);
       }
       else {
-        otherBankAccountList!.add(bankAccountTemp);
+        otherBankAccountList.add(bankAccountTemp);
       }
     }
     // sort alphabetically order by names
-    caBankAccountList!.sort((a, b) => a.name!.compareTo(b.name!));
-    otherBankAccountList!.sort((a, b) => a.name!.compareTo(b.name!));
+    caBankAccountList.sort((a, b) => a.name.compareTo(b.name));
+    otherBankAccountList.sort((a, b) => a.name.compareTo(b.name));
   }
 
   @override
@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Navigator(
         onGenerateRoute: (settings) {
           Widget page =  BanksList(caBankAccountList: caBankAccountList,otherBankAccountList: otherBankAccountList,);
-          if (settings.name == 'page2') page = const AccountOperations();
+          if (settings.name == 'page2') page =  AccountOperations(account: caBankAccountList[0].accounts[0]);
           return MaterialPageRoute(builder: (_) => page);
         },
       ),

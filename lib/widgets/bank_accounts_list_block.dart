@@ -30,7 +30,7 @@ class BankAccountListBlock extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return ExpansionTile(
                   title:Text(
-                      banks![index].name!,
+                      banks![index].name,
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 15,
@@ -40,21 +40,21 @@ class BankAccountListBlock extends StatelessWidget {
                     ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: banks![index].accounts!.length,
+                    itemCount: banks![index].accounts.length,
                     itemBuilder: (BuildContext context, int index2) {
                       //map List of our data to the ListView
                       return Container(
                           padding:const EdgeInsets.only(left: 8),
                           child: ListTile(
                             title:Text(
-                                banks![index].accounts![index2].label!,
+                                banks![index].accounts[index2].label,
                                 style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold),
                             ),
                             trailing:Text(
-                                "${banks![index].accounts![index2].balance} €",
+                                "${banks![index].accounts[index2].balance} €",
                                 style: const TextStyle(
                                     color: Colors.grey,
                                     fontSize: 12,
@@ -63,7 +63,7 @@ class BankAccountListBlock extends StatelessWidget {
                             onTap: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) =>  AccountOperations(account: banks![index].accounts![index2]),
+                                  builder: (context) =>  AccountOperations(account: banks![index].accounts[index2]),
                                 ),
                               );
                             }
