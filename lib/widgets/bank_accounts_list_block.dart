@@ -5,9 +5,9 @@ import 'package:test_mobile_ca/views/account_operations.dart';
 /// reusable widget to display a list of bank accounts
 
 class BankAccountListBlock extends StatelessWidget {
-  const BankAccountListBlock({Key? key, this.title, this.banks}) : super(key: key);
-  final String? title;
-  final List<BankAccount>? banks;
+  const BankAccountListBlock({Key? key, required this.title, required this.banks}) : super(key: key);
+  final String title;
+  final List<BankAccount> banks;
 
   @override
   Widget build(BuildContext context) {
@@ -18,19 +18,19 @@ class BankAccountListBlock extends StatelessWidget {
               padding: const EdgeInsets.all(5),
               alignment: Alignment.centerLeft,
               child: Text(
-                  title!,
+                  title,
                   style: TextStyle(
                       color: Colors.grey[700],
                       fontSize: 20,
                       fontWeight: FontWeight.bold) )),
-          ListView.builder(
+          banks.isNotEmpty ? ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              itemCount: banks!.length,
+              itemCount: banks?.length,
               itemBuilder: (BuildContext context, int index) {
                 return ExpansionTile(
                   title:Text(
-                      banks![index].name,
+                      banks?[index].name??"",
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 15,
@@ -47,14 +47,14 @@ class BankAccountListBlock extends StatelessWidget {
                           padding:const EdgeInsets.only(left: 8),
                           child: ListTile(
                             title:Text(
-                                banks![index].accounts[index2].label,
+                                banks?[index].accounts[index2].label??"",
                                 style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold),
                             ),
                             trailing:Text(
-                                "${banks![index].accounts[index2].balance} €",
+                                "${banks?[index].accounts[index2].balance} €",
                                 style: const TextStyle(
                                     color: Colors.grey,
                                     fontSize: 12,
@@ -69,10 +69,12 @@ class BankAccountListBlock extends StatelessWidget {
                             }
                             ));
                     })],);
-              })
+              }): Container(child: Text("Aucune banque"),)
         ]
     );
   }
 
-  void initState() {}
+  void initState() {
+    print("here");
+  }
 }

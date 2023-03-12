@@ -25,8 +25,12 @@ class Account {
     for (var o in obj[ObjectAttribute.operations]?? []) {
       _operations.add(Operation.map(o));
     }
+    // first sort alphabetically
+    // then sort by date newest first
+    // this way if two have the same date tey will be ordered alphabetically
     _operations.sort((a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
-    _operations.sort((a, b) => a.date.toLowerCase().compareTo(b.date.toLowerCase()));
+    _operations.sort((b, a) => a.date.toLowerCase().compareTo(b.date.toLowerCase()));
+
     _order = obj[ObjectAttribute.order];
     _productCode = obj[ObjectAttribute.productCode];
     _role = obj[ObjectAttribute.role];

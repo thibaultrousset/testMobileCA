@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:test_mobile_ca/service/bank_service.dart';
+import 'package:test_mobile_ca/utils/snackBar.dart';
 import 'package:test_mobile_ca/views/account_operations.dart';
 import 'package:test_mobile_ca/views/banks_lists.dart';
 
@@ -14,33 +16,29 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<BankAccount> caBankAccountList = [];
-  List<BankAccount> otherBankAccountList = [];
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-  // create list of bank accounts mapped with models and separates in 2 lists
-  // CA bank accounts ans other bank accounts
-  generateBankAccountList(bankAccounts){
-    // loop on api response (json here)
-    for (var i=0; i<bankAccounts.length; i++){
-      // map on model
-      var bankAccountTemp = BankAccount.map(bankAccounts[i]);
-      // separate ca from others
-      if(bankAccountTemp.isCA == 0){
-        caBankAccountList.add(bankAccountTemp);
-      }
-      else {
-        otherBankAccountList.add(bankAccountTemp);
-      }
-    }
-    // sort alphabetically order by names
-    caBankAccountList.sort((a, b) => a.name.compareTo(b.name));
-    otherBankAccountList.sort((a, b) => a.name.compareTo(b.name));
+  List<BankAccount> bankAccountList = [];
+
+  BankService bankService = BankService();
+  SnackBarUtil snackBarUtil = SnackBarUtil();
+
+
+
+  _getBanks(){
+    bankService.getBanks().then((res) {
+      setState(() {
+      bankAccountList = res;
+      });
+    }).catchError((error) {
+      snackBarUtil.displayMessage(error.toString(), scaffoldKey, context);
+    });
   }
 
   @override
   void initState() {
     super.initState();
-    generateBankAccountList(responseJson);
+    _getBanks();
   }
 
   @override
@@ -49,9 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
       // keep bottom nav bar during navigation
       body: Navigator(
         onGenerateRoute: (settings) {
-          Widget page =  BanksList(caBankAccountList: caBankAccountList,otherBankAccountList: otherBankAccountList,);
-          if (settings.name == 'page2') page =  AccountOperations(account: caBankAccountList[0].accounts[0]);
-          return MaterialPageRoute(builder: (_) => page);
+          return MaterialPageRoute(builder: (_) => BankList(bankAccountList: bankAccountList));
         },
       ),
       bottomNavigationBar: BottomNavigationBar(

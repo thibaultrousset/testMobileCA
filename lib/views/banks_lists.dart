@@ -6,10 +6,9 @@ import '../models/bank_account.dart';
 
 /// body of my account with the two lists of bank accounts
 
-class BanksList extends StatelessWidget {
-  const BanksList({Key? key, this.caBankAccountList, this.otherBankAccountList}) : super(key: key);
- final  List<BankAccount>? caBankAccountList;
-  final List<BankAccount>? otherBankAccountList;
+class BankList extends StatelessWidget {
+  const BankList({Key? key, required this.bankAccountList}) : super(key: key);
+ final List<BankAccount> bankAccountList;
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +30,8 @@ class BanksList extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            BankAccountListBlock(title: Wording.caBank,banks: caBankAccountList,),
-            BankAccountListBlock(title: Wording.otherBanks,banks: otherBankAccountList,),
+            BankAccountListBlock(title: Wording.caBank,banks: bankAccountList.where((element) => element.isCA == 1).toList(),),
+            BankAccountListBlock(title: Wording.otherBanks,banks: bankAccountList.where((element) => element.isCA == 0).toList(),),
           ],
         ),
       );}),
@@ -40,5 +39,8 @@ class BanksList extends StatelessWidget {
     );
   }
 
-  void initState() {}
+  void initState() {
+    print("hrfdhdf");
+    print(bankAccountList);
+  }
 }
