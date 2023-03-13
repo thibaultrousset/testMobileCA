@@ -10,10 +10,10 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key,});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreen> createState() => HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   List<BankAccount> bankAccountList = [];
@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
   /// get bank list with api request
-  _getBanks(){
+  getBanks(){
     bankService.getBanks().then((res) {
       setState(() {
         bankAccountList = res;
@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    _getBanks();
+    getBanks();
   }
 
   @override
