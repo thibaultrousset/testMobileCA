@@ -9,5 +9,7 @@ class Wording {
   static const String caBank = "Crédit Agricole";
   static const String otherBanks = "Autres banques";
 
-  
+  static const String emptyBanks = "Aucune banque";
+  static const String emptyAccounts = "Aucun compte ouvert";
+  static const String emptyOperations = "Aucune opération";
 }

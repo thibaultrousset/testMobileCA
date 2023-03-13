@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:test_mobile_ca/helpers/error_messages.dart';
+import 'package:test_mobile_ca/helpers/http.dart';
 
 class Api {
   /// *
@@ -38,42 +40,38 @@ class Api {
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.contentTypeHeader: 'application/json',
     };
-    var responseJson;
+    Future responseJson;
 
     // switch case through http methods
     switch (methodType) {
-      case "post":
+      case Http.post:
         {
           try {
             final response = await http.post(Uri.parse(base + url!), body: body, headers: headers, encoding: encoding);
-            print(response);
-            print(response.request);
-            print(response.body);
             responseJson = responseHandle(response, methodType);
-          } catch (e) {
-            print(e);
-            throw (e);
+          } on SocketException {
+            throw (ErrorMessages.noInternet);
           }
           return responseJson;
         }
 
-      case "put":
+      case Http.put:
         {
           try {
             final response = await http.put(Uri.parse(base + url!), body: body, headers: headers, encoding: encoding);
             responseJson = responseHandle(response, methodType);
           } on SocketException {
-            throw ("no internet");
+            throw (ErrorMessages.noInternet);
           }
           return responseJson;
         }
-      case "get":
+      case Http.get:
         {
           try {
             final response = await http.get(Uri.parse(base + url!), headers: headers);
             responseJson = responseHandle(response, methodType);
           } on SocketException {
-            throw ("no internet");
+            throw (ErrorMessages.noInternet);
           }
           return responseJson;
         }
@@ -86,24 +84,37 @@ class Api {
     dynamic res;
     // status to check to know what to do with response
     int statusCode = response.statusCode;
-    print(response);
     res = _decoder.convert(response.body);
-    print(res);
-    //  res = response.data;
 
-    /// way of treating err mess translation in front
-    switch (statusCode) {
-    // check which english err is received to know which french err to display
-      case 400:
-        {
-          // response contains only one err message as a string
-          throw (res["error"]["message"]);
-        }
+    if(statusCode>=400){
+      switch (statusCode) {
+
+        case 500:
+        case 501:
+        case 502:
+        case 504:
+          {
+            throw (ErrorMessages.serverError);
+          }
+        case 404:
+          {
+            throw (ErrorMessages.pageNotFound);
+          }
+        case 400:
+          {
+            throw (res);
+          }
+        default:
+          {
+            throw (ErrorMessages.anErrorOccurred);
+          }
+      }
     }
-    // if status code diff than 200 I have an error message send in the body with key "error_message" in post requests
+    // if status code diff than 200 I have an error message send in the body
     if (statusCode != 200 && statusCode != 202) {
       throw (res);
     }
+
     // no error status => i can return my response in expected format
     return res;
   }

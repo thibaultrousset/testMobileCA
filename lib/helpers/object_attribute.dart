@@ -1,5 +1,5 @@
 class ObjectAttribute {
-  // response object attributs
+  // response object attributes
   static const String accounts = "accounts";
   static const String balance = "balance";
   static const String contractNumber = "contract_number";

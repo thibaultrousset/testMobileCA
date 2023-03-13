@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:test_mobile_ca/helpers/wording.dart';
 import 'package:test_mobile_ca/models/bank_account.dart';
 import 'package:test_mobile_ca/views/account_operations.dart';
+import 'package:test_mobile_ca/widgets/empty_state.dart';
 
 /// reusable widget to display a list of bank accounts
 
@@ -26,55 +28,54 @@ class BankAccountListBlock extends StatelessWidget {
           banks.isNotEmpty ? ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              itemCount: banks?.length,
+              itemCount: banks.length,
               itemBuilder: (BuildContext context, int index) {
                 return ExpansionTile(
                   title:Text(
-                      banks?[index].name??"",
+                      banks[index].name,
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 15,
                           fontWeight: FontWeight.bold)
                   ),
                   children: [
-                    ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: banks![index].accounts.length,
-                    itemBuilder: (BuildContext context, int index2) {
-                      //map List of our data to the ListView
-                      return Container(
-                          padding:const EdgeInsets.only(left: 8),
-                          child: ListTile(
-                            title:Text(
-                                banks?[index].accounts[index2].label??"",
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold),
-                            ),
-                            trailing:Text(
-                                "${banks?[index].accounts[index2].balance} €",
-                                style: const TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold)
-                            ),
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) =>  AccountOperations(account: banks![index].accounts[index2]),
-                                ),
-                              );
-                            }
-                            ));
-                    })],);
-              }): Container(child: Text("Aucune banque"),)
+                    banks[index].accounts.isNotEmpty ? ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: banks[index].accounts.length,
+                        itemBuilder: (BuildContext context, int index2) {
+                          //map List of our data to the ListView
+                          return Container(
+                              padding:const EdgeInsets.only(left: 8),
+                              child: ListTile(
+                                  title:Text(
+                                    banks[index].accounts[index2].label,
+                                    style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  trailing:Text(
+                                      "${banks[index].accounts[index2].balance} €",
+                                      style: const TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold)
+                                  ),
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) =>  AccountOperations(account: banks[index].accounts[index2]),
+                                      ),
+                                    );
+                                  }
+                              ));
+                        }):const EmptyState(message: Wording.emptyAccounts) ],);
+              }): const EmptyState(message: Wording.emptyBanks)
         ]
     );
   }
 
   void initState() {
-    print("here");
   }
 }

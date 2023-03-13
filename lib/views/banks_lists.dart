@@ -40,7 +40,5 @@ class BankList extends StatelessWidget {
   }
 
   void initState() {
-    print("hrfdhdf");
-    print(bankAccountList);
   }
 }

@@ -13,7 +13,6 @@ class Account {
   String _productCode = "";
   int _role = 0;
 
-
   Account(this._id, this._balance, this._contractNumber, this._holder, this._label, this._operations, this._order, this._productCode, this._role);
 
   Account.map(dynamic obj) {

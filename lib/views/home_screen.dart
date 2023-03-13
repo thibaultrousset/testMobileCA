@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:test_mobile_ca/service/bank_service.dart';
-import 'package:test_mobile_ca/utils/snackBar.dart';
-import 'package:test_mobile_ca/views/account_operations.dart';
+import 'package:test_mobile_ca/utils/snack_bar.dart';
 import 'package:test_mobile_ca/views/banks_lists.dart';
 
-import '../helpers/response_json.dart';
 import '../helpers/wording.dart';
 import '../models/bank_account.dart';
 
@@ -24,11 +22,11 @@ class _HomeScreenState extends State<HomeScreen> {
   SnackBarUtil snackBarUtil = SnackBarUtil();
 
 
-
+  /// get bank list with api request
   _getBanks(){
     bankService.getBanks().then((res) {
       setState(() {
-      bankAccountList = res;
+        bankAccountList = res;
       });
     }).catchError((error) {
       snackBarUtil.displayMessage(error.toString(), scaffoldKey, context);
